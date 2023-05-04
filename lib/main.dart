@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:itm/ColorPalettes/color.dart';
 import 'package:itm/authenticator/process.dart';
+import 'package:itm/testing/admin_login.dart';
 import 'package:itm/testing/loginone.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+
 final auth = FirebaseAuth.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -32,8 +33,7 @@ class MyApp extends StatelessWidget {
           splashIconSize: 300,
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: ColorPalette.backgroundcolor,
-          nextScreen: auth.currentUser == null ? LoginPage() : Process(),
-        )
-    );
+          nextScreen: const AdminLogin(),
+        ));
   }
 }

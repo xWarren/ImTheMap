@@ -48,661 +48,687 @@ class _MagalangDataState extends State<MagalangData> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text('Add Data',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.justify),
-                  ),
-                  TextField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Name'),
-                  ),
-                  TextField(
-                    controller: _detailsController,
-                    decoration: const InputDecoration(
-                      labelText: 'Details',
+          return StatefulBuilder(builder: (BuildContext context,
+              void Function(void Function() function) setState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                  right: 20,
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text('Add Data',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.justify),
                     ),
-                  ),
-                  TextField(
-                    controller: _priceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Price',
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(labelText: 'Name'),
                     ),
-                  ),
-                  TextField(
-                    controller: _resorttimeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Resort Time',
+                    TextField(
+                      controller: _detailsController,
+                      decoration: const InputDecoration(
+                        labelText: 'Details',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller: _contactinfoController,
-                    decoration: const InputDecoration(
-                      labelText: 'Contact Info',
+                    TextField(
+                      controller: _priceController,
+                      decoration: const InputDecoration(
+                        labelText: 'Price',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller: _facebookController,
-                    decoration: const InputDecoration(
-                      labelText: 'Facebook Link',
+                    TextField(
+                      controller: _resorttimeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Resort Time',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller: _locationController,
-                    decoration: const InputDecoration(
-                      labelText: 'Location Link',
+                    TextField(
+                      controller: _contactinfoController,
+                      decoration: const InputDecoration(
+                        labelText: 'Contact Info',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller: _ratingsController,
-                    decoration: const InputDecoration(
-                      labelText: 'Ratings',
+                    TextField(
+                      controller: _facebookController,
+                      decoration: const InputDecoration(
+                        labelText: 'Facebook Link',
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade700,
+                    TextField(
+                      controller: _locationController,
+                      decoration: const InputDecoration(
+                        labelText: 'Location Link',
+                      ),
                     ),
-                    onPressed: () async {
-                      _getFromGallery();
+                    TextField(
+                      controller: _ratingsController,
+                      decoration: const InputDecoration(
+                        labelText: 'Ratings',
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue.shade700,
+                      ),
+                      onPressed: () async {
+                        _getFromGallery();
 
-                      if (imageFile == null) return;
-                      String uniqueFileName =
-                          DateTime.now().millisecondsSinceEpoch.toString();
+                        if (imageFile == null) return;
+                        String uniqueFileName =
+                            DateTime.now().millisecondsSinceEpoch.toString();
 
-                      //Get a reference to storage root
-                      Reference referenceRoot = FirebaseStorage.instance.ref();
-                      Reference referenceDirImages =
-                          referenceRoot.child('images_magalang');
+                        //Get a reference to storage root
+                        Reference referenceRoot =
+                            FirebaseStorage.instance.ref();
+                        Reference referenceDirImages =
+                            referenceRoot.child('images_magalang');
 
-                      //Create a reference for the image to be stored
-                      Reference referenceImageToUpload =
-                          referenceDirImages.child(uniqueFileName);
-                      String url;
-                      //Handle errors or success
-                      try {
-                        //Store the file
-                        await referenceImageToUpload
-                            .putFile(File(imageFile!.path));
-                        //Success: get download url
-                        imageUrl =
-                            await referenceImageToUpload.getDownloadURL();
-                        url = imageUrl.toString();
-                      } catch (error) {
-                        //Some error occured
-                      }
-                    },
-                    child: Text("Image"),
-                  ),
-                  Container(
-                    height: 40.0,
-                  ),
-                  //image 1 and 2
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                        //Create a reference for the image to be stored
+                        Reference referenceImageToUpload =
+                            referenceDirImages.child(uniqueFileName);
+                        String url;
+                        //Handle errors or success
+                        try {
+                          //Store the file
+                          await referenceImageToUpload
+                              .putFile(File(imageFile!.path));
+                          //Success: get download url
+                          imageUrl =
+                              await referenceImageToUpload.getDownloadURL();
+                          url = imageUrl.toString();
+                        } catch (error) {
+                          //Some error occured
+                        }
+                      },
+                      child: Text("Image"),
+                    ),
+                    Container(
+                      height: 40.0,
+                    ),
+                    //image 1 and 2
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image1 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image1.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Pool Image 1"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image1 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image1.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Pool Image 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                        SizedBox(
+                          width: 5,
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image2 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image2.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Pool Image 2"),
-                      ),
-                    ],
-                  ),
-                  //image 3 and 4
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image2 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image2.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Pool Image 2"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                      ],
+                    ),
+                    //image 3 and 4
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image3 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image3.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Lobby 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image3 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image3.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Lobby 1"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image4 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image4.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Lobby 2"),
-                      ),
-                    ],
-                  ),
-                  //image 5 and 6
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                        SizedBox(
+                          width: 5,
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image5 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image5.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Room 1"),
-                      ),
-                      SizedBox(width: 5),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image4 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image4.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Lobby 2"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                      ],
+                    ),
+                    //image 5 and 6
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image6 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image6.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Room 2"),
-                      ),
-                    ],
-                  ),
-                  //image 7 and 8
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image5 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image5.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Room 1"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                        SizedBox(width: 5),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image7 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image7.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Dining 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image6 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image6.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Room 2"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                      ],
+                    ),
+                    //image 7 and 8
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image8 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = image8.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Dining 2"),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image7 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image7.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Dining 1"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            feedback1 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = feedback1.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Feedback 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                        SizedBox(
+                          width: 5,
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
 
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            feedback2 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = feedback2.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Feedback 2"),
-                      ),
-                    ],
-                  ),
-                  //image 11
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image8 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = image8.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Dining 2"),
                         ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
 
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            feedback3 =
-                                await referenceImageToUpload.getDownloadURL();
-                            imageUrl = feedback3.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Feedback 3"),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Center(child: const Text('Create')),
-                    onPressed: () async {
-                      final String name = _nameController.text;
-                      final String details = _detailsController.text;
-                      final String price = _priceController.text;
-                      final String resorttime = _resorttimeController.text;
-                      final String contactinfo = _contactinfoController.text;
-                      final String facebook = _facebookController.text;
-                      final String location = _locationController.text;
-                      final String ratings = _ratingsController.text;
-                      if (price != null) {
-                        await _magalang.add({
-                          "name": name,
-                          "details": details,
-                          "price": price,
-                          "resorttime": resorttime,
-                          "contactinfo": contactinfo,
-                          "facebook": facebook,
-                          "location": location,
-                          "ratings": ratings,
-                          "image": imageUrl,
-                          "image1": image1,
-                          "image2": image2,
-                          "image3": image3,
-                          "image4": image4,
-                          "image5": image5,
-                          "image6": image6,
-                          "image7": image7,
-                          "image8": image8,
-                          "feedback1": feedback1,
-                          "feedback2": feedback2,
-                          "feedback3": feedback3,
-                        });
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              feedback1 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = feedback1.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Feedback 1"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
 
-                        _nameController.text = '';
-                        _detailsController.text = '';
-                        _priceController.text = '';
-                        _resorttimeController.text = '';
-                        _contactinfoController.text = '';
-                        _facebookController.text = '';
-                        _locationController.text = '';
-                        _ratingsController.text = '';
-                        imageUrl = '';
-                        image1 = '';
-                        image2 = '';
-                        image3 = '';
-                        image4 = '';
-                        image5 = '';
-                        image6 = '';
-                        image7 = '';
-                        image8 = '';
-                        feedback1 = '';
-                        feedback2 = '';
-                        feedback3 = '';
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
 
-                        Navigator.of(context).pop();
-                      }
-                    },
-                  )
-                ],
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              feedback2 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = feedback2.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Feedback 2"),
+                        ),
+                      ],
+                    ),
+                    //image 11
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              feedback3 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              imageUrl = feedback3.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Feedback 3"),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      child: Center(child: const Text('Create')),
+                      onPressed: () async {
+                        final String name = _nameController.text;
+                        final String details = _detailsController.text;
+                        final String price = _priceController.text;
+                        final String resorttime = _resorttimeController.text;
+                        final String contactinfo = _contactinfoController.text;
+                        final String facebook = _facebookController.text;
+                        final String location = _locationController.text;
+                        final String ratings = _ratingsController.text;
+                        if (price != null) {
+                          await _magalang.add({
+                            "name": name,
+                            "details": details,
+                            "price": price,
+                            "resorttime": resorttime,
+                            "contactinfo": contactinfo,
+                            "facebook": facebook,
+                            "location": location,
+                            "ratings": ratings,
+                            "image": imageUrl,
+                            "image1": image1,
+                            "image2": image2,
+                            "image3": image3,
+                            "image4": image4,
+                            "image5": image5,
+                            "image6": image6,
+                            "image7": image7,
+                            "image8": image8,
+                            "feedback1": feedback1,
+                            "feedback2": feedback2,
+                            "feedback3": feedback3,
+                          });
+
+                          _nameController.text = '';
+                          _detailsController.text = '';
+                          _priceController.text = '';
+                          _resorttimeController.text = '';
+                          _contactinfoController.text = '';
+                          _facebookController.text = '';
+                          _locationController.text = '';
+                          _ratingsController.text = '';
+                          imageUrl = '';
+                          image1 = '';
+                          image2 = '';
+                          image3 = '';
+                          image4 = '';
+                          image5 = '';
+                          image6 = '';
+                          image7 = '';
+                          image8 = '';
+                          feedback1 = '';
+                          feedback2 = '';
+                          feedback3 = '';
+
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          });
         });
   }
 
@@ -749,673 +775,701 @@ class _MagalangDataState extends State<MagalangData> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext ctx) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: 120,
-                  left: 20,
-                  right: 20,
-                  bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text('Update data',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.justify),
-                  ),
-                  TextField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Name'),
-                  ),
-                  TextField(
-                    controller: _detailsController,
-                    decoration: const InputDecoration(labelText: 'Details'),
-                  ),
-                  TextField(
-                    controller: _priceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Price',
+          return StatefulBuilder(builder: (BuildContext context,
+              void Function(void Function() function) setState) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: 120,
+                    left: 20,
+                    right: 20,
+                    bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text('Update data',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.justify),
                     ),
-                  ),
-                  TextField(
-                    controller: _resorttimeController,
-                    decoration: const InputDecoration(labelText: 'Resort Time'),
-                  ),
-                  TextField(
-                    controller: _contactinfoController,
-                    decoration:
-                        const InputDecoration(labelText: 'Contact Info'),
-                  ),
-                  TextField(
-                    controller: _facebookController,
-                    decoration:
-                        const InputDecoration(labelText: 'Facebook Link'),
-                  ),
-                  TextField(
-                    controller: _locationController,
-                    decoration:
-                        const InputDecoration(labelText: 'Location Link'),
-                  ),
-                  TextField(
-                    controller: _ratingsController,
-                    decoration: const InputDecoration(labelText: 'Ratings'),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade700,
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(labelText: 'Name'),
                     ),
-                    onPressed: () async {
-                      _getFromGallery();
+                    TextField(
+                      controller: _detailsController,
+                      decoration: const InputDecoration(labelText: 'Details'),
+                    ),
+                    TextField(
+                      controller: _priceController,
+                      decoration: const InputDecoration(
+                        labelText: 'Price',
+                      ),
+                    ),
+                    TextField(
+                      controller: _resorttimeController,
+                      decoration:
+                          const InputDecoration(labelText: 'Resort Time'),
+                    ),
+                    TextField(
+                      controller: _contactinfoController,
+                      decoration:
+                          const InputDecoration(labelText: 'Contact Info'),
+                    ),
+                    TextField(
+                      controller: _facebookController,
+                      decoration:
+                          const InputDecoration(labelText: 'Facebook Link'),
+                    ),
+                    TextField(
+                      controller: _locationController,
+                      decoration:
+                          const InputDecoration(labelText: 'Location Link'),
+                    ),
+                    TextField(
+                      controller: _ratingsController,
+                      decoration: const InputDecoration(labelText: 'Ratings'),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue.shade700,
+                      ),
+                      onPressed: () async {
+                        _getFromGallery();
 
-                      if (imageFile == null) return;
-                      String uniqueFileName =
-                          DateTime.now().millisecondsSinceEpoch.toString();
+                        if (imageFile == null) return;
+                        String uniqueFileName =
+                            DateTime.now().millisecondsSinceEpoch.toString();
 
-                      //Get a reference to storage root
-                      //Reference referenceRoot = FirebaseStorage.instance.ref();
-                      //Reference referenceDirImages =
-                      //referenceRoot.child('images');
+                        //Get a reference to storage root
+                        //Reference referenceRoot = FirebaseStorage.instance.ref();
+                        //Reference referenceDirImages =
+                        //referenceRoot.child('images');
 
-                      //Create a reference for the image to be stored
-                      //Reference referenceImageToUpload =
-                      //referenceDirImages.child(uniqueFileName);
+                        //Create a reference for the image to be stored
+                        //Reference referenceImageToUpload =
+                        //referenceDirImages.child(uniqueFileName);
 
-                      Reference referenceImageToUpload = FirebaseStorage
-                          .instance
-                          .ref()
-                          .child("images_magalang")
-                          .child(uniqueFileName);
-                      UploadTask uploadTask =
-                          referenceImageToUpload.putFile(File(imageFile!.path));
-                      TaskSnapshot taskSnapshot =
-                          await uploadTask.whenComplete(() {});
-                      await taskSnapshot.ref.getDownloadURL().then((url) async {
-                        url = imageUrl;
-                      });
-                      String url;
-                      //Handle errors or success
-                      try {
-                        //Store the file
-                        await referenceImageToUpload
+                        Reference referenceImageToUpload = FirebaseStorage
+                            .instance
+                            .ref()
+                            .child("images_magalang")
+                            .child(uniqueFileName);
+                        UploadTask uploadTask = referenceImageToUpload
                             .putFile(File(imageFile!.path));
-                        //Success: get download url
-                        imageUrl =
-                            await referenceImageToUpload.getDownloadURL();
-                        url = imageUrl.toString();
-                      } catch (error) {
-                        //Some error occured
-                      }
-                    },
-                    child: Text("Image"),
-                  ),
-                  Container(
-                    height: 40.0,
-                  ),
-                  //image 1 and 2
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image1 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image1.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Pool Image 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image2 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image2.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Pool Image 2"),
-                      ),
-                    ],
-                  ),
-                  //image 3 and 4
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image3 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image3.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Lobby 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image4 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image4.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Lobby 2"),
-                      ),
-                    ],
-                  ),
-                  //image 5 and 6
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image5 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image5.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Room 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image6 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image6.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Room 2"),
-                      ),
-                    ],
-                  ),
-                  //image 7 and 8
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image7 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image7.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Dining 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            image8 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = image8.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Dining 2"),
-                      ),
-                    ],
-                  ),
-                  //image 9 and 10
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            feedback1 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = feedback1.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Feedback 1"),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            feedback2 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = feedback2.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Feedback 2"),
-                      ),
-                    ],
-                  ),
-                  //image 11
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        onPressed: () async {
-                          if (imageUrl.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Please upload an image')));
-                          }
-                          _getFromGallery();
-
-                          if (imageFile == null) return;
-                          String uniqueFileName =
-                              DateTime.now().millisecondsSinceEpoch.toString();
-
-                          //Get a reference to storage root
-                          Reference referenceRoot =
-                              FirebaseStorage.instance.ref();
-                          Reference referenceDirImages =
-                              referenceRoot.child('images_magalang');
-
-                          //Create a reference for the image to be stored
-                          Reference referenceImageToUpload =
-                              referenceDirImages.child(uniqueFileName);
-                          //Handle errors or success
-                          String url;
-                          try {
-                            //Store the file
-                            await referenceImageToUpload
-                                .putFile(File(imageFile!.path));
-                            //Success: get download url
-                            feedback3 =
-                                await referenceImageToUpload.getDownloadURL();
-                            url = feedback3.toString();
-                          } catch (error) {
-                            //Some error occured
-                          }
-                        },
-                        child: Text("Feedback 3"),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Center(child: const Text('Update')),
-                    onPressed: () async {
-                      final String name = _nameController.text;
-                      final String details = _detailsController.text;
-                      final String price = _priceController.text;
-                      final String resorttime = _resorttimeController.text;
-                      final String contactinfo = _contactinfoController.text;
-                      final String facebook = _facebookController.text;
-                      final String location = _locationController.text;
-                      final String ratings = _ratingsController.text;
-                      if (price != null) {
-                        await _magalang.doc(documentSnapshot!.id).update({
-                          "name": name,
-                          "price": price,
-                          "details": details,
-                          'resorttime': resorttime,
-                          'contactinfo': contactinfo,
-                          'facebook': facebook,
-                          'location': location,
-                          'ratings': ratings,
-                          "image": imageUrl,
-                          'image1': image1,
-                          'image2': image2,
-                          'image3': image3,
-                          'image4': image4,
-                          'image5': image5,
-                          'image6': image6,
-                          'image7': image7,
-                          'image8': image8,
-                          'feedback1': feedback1,
-                          'feedback2': feedback2,
-                          'feedback3': feedback3
+                        TaskSnapshot taskSnapshot =
+                            await uploadTask.whenComplete(() {});
+                        await taskSnapshot.ref
+                            .getDownloadURL()
+                            .then((url) async {
+                          url = imageUrl;
                         });
-                        _nameController.text = '';
-                        _priceController.text = '';
-                        _detailsController.text = '';
-                        _resorttimeController.text = '';
-                        _contactinfoController.text = '';
-                        _facebookController.text = '';
-                        _locationController.text = '';
-                        _ratingsController.text = '';
-                        imageUrl = '';
-                        image1 = '';
-                        image2 = '';
-                        image3 = '';
-                        image4 = '';
-                        image5 = '';
-                        image6 = '';
-                        image7 = '';
-                        image8 = '';
-                        feedback1 = '';
-                        feedback2 = '';
-                        feedback3 = '';
-                        Navigator.of(context).pop();
-                      }
-                    },
-                  )
-                ],
+                        String url;
+                        //Handle errors or success
+                        try {
+                          //Store the file
+                          await referenceImageToUpload
+                              .putFile(File(imageFile!.path));
+                          //Success: get download url
+                          imageUrl =
+                              await referenceImageToUpload.getDownloadURL();
+                          url = imageUrl.toString();
+                        } catch (error) {
+                          //Some error occured
+                        }
+                      },
+                      child: Text("Image"),
+                    ),
+                    Container(
+                      height: 40.0,
+                    ),
+                    //image 1 and 2
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image1 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image1.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Pool Image 1"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image2 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image2.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Pool Image 2"),
+                        ),
+                      ],
+                    ),
+                    //image 3 and 4
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image3 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image3.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Lobby 1"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image4 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image4.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Lobby 2"),
+                        ),
+                      ],
+                    ),
+                    //image 5 and 6
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image5 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image5.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Room 1"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image6 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image6.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Room 2"),
+                        ),
+                      ],
+                    ),
+                    //image 7 and 8
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image7 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image7.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Dining 1"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              image8 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = image8.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Dining 2"),
+                        ),
+                      ],
+                    ),
+                    //image 9 and 10
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              feedback1 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = feedback1.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Feedback 1"),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              feedback2 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = feedback2.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Feedback 2"),
+                        ),
+                      ],
+                    ),
+                    //image 11
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                          onPressed: () async {
+                            if (imageUrl.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Please upload an image')));
+                            }
+                            _getFromGallery();
+
+                            if (imageFile == null) return;
+                            String uniqueFileName = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
+
+                            //Get a reference to storage root
+                            Reference referenceRoot =
+                                FirebaseStorage.instance.ref();
+                            Reference referenceDirImages =
+                                referenceRoot.child('images_magalang');
+
+                            //Create a reference for the image to be stored
+                            Reference referenceImageToUpload =
+                                referenceDirImages.child(uniqueFileName);
+                            //Handle errors or success
+                            String url;
+                            try {
+                              //Store the file
+                              await referenceImageToUpload
+                                  .putFile(File(imageFile!.path));
+                              //Success: get download url
+                              feedback3 =
+                                  await referenceImageToUpload.getDownloadURL();
+                              url = feedback3.toString();
+                            } catch (error) {
+                              //Some error occured
+                            }
+                          },
+                          child: Text("Feedback 3"),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      child: Center(child: const Text('Update')),
+                      onPressed: () async {
+                        final String name = _nameController.text;
+                        final String details = _detailsController.text;
+                        final String price = _priceController.text;
+                        final String resorttime = _resorttimeController.text;
+                        final String contactinfo = _contactinfoController.text;
+                        final String facebook = _facebookController.text;
+                        final String location = _locationController.text;
+                        final String ratings = _ratingsController.text;
+                        if (price != null) {
+                          await _magalang.doc(documentSnapshot!.id).update({
+                            "name": name,
+                            "price": price,
+                            "details": details,
+                            'resorttime': resorttime,
+                            'contactinfo': contactinfo,
+                            'facebook': facebook,
+                            'location': location,
+                            'ratings': ratings,
+                            "image": imageUrl,
+                            'image1': image1,
+                            'image2': image2,
+                            'image3': image3,
+                            'image4': image4,
+                            'image5': image5,
+                            'image6': image6,
+                            'image7': image7,
+                            'image8': image8,
+                            'feedback1': feedback1,
+                            'feedback2': feedback2,
+                            'feedback3': feedback3
+                          });
+                          _nameController.text = '';
+                          _priceController.text = '';
+                          _detailsController.text = '';
+                          _resorttimeController.text = '';
+                          _contactinfoController.text = '';
+                          _facebookController.text = '';
+                          _locationController.text = '';
+                          _ratingsController.text = '';
+                          imageUrl = '';
+                          image1 = '';
+                          image2 = '';
+                          image3 = '';
+                          image4 = '';
+                          image5 = '';
+                          image6 = '';
+                          image7 = '';
+                          image8 = '';
+                          feedback1 = '';
+                          feedback2 = '';
+                          feedback3 = '';
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          });
         });
   }
 
@@ -1478,8 +1532,8 @@ class _MagalangDataState extends State<MagalangData> {
                                           .withOpacity(0.5),
                                       spreadRadius: 5,
                                       blurRadius: 7,
-                                      offset:
-                                          Offset(0, 3), // changes position of shadow
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
                                     ),
                                   ],
                                 ),
@@ -1503,7 +1557,8 @@ class _MagalangDataState extends State<MagalangData> {
                                   trailing: SizedBox(
                                     width: 150,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         IconButton(
                                             onPressed: () {
@@ -1527,7 +1582,8 @@ class _MagalangDataState extends State<MagalangData> {
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
-                                                    _delete(documentSnapshot.id);
+                                                    _delete(
+                                                        documentSnapshot.id);
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: new Text('Yes'),
