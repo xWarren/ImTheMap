@@ -20,6 +20,7 @@ class _SearchDataState extends State<SearchData> {
       FirebaseFirestore.instance.collection('search');
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _resorttimeController = TextEditingController();
   final TextEditingController _contactinfoController = TextEditingController();
@@ -27,7 +28,9 @@ class _SearchDataState extends State<SearchData> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _ratingsController = TextEditingController();
 
+  // ignore: non_constant_identifier_names
   String default_choice = "Angeles";
+  // ignore: non_constant_identifier_names
   int default_index = 0;
 
   List<MyChoice> choices = [
@@ -91,6 +94,12 @@ class _SearchDataState extends State<SearchData> {
                       controller: _detailsController,
                       decoration: const InputDecoration(
                         labelText: 'Details',
+                      ),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(
+                        labelText: 'Address',
                       ),
                     ),
                     TextField(
@@ -707,6 +716,7 @@ class _SearchDataState extends State<SearchData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -717,6 +727,7 @@ class _SearchDataState extends State<SearchData> {
                           await _search.add({
                             "name": name,
                             "details": details,
+                            "address": address,
                             "price": price,
                             "resorttime": resorttime,
                             "contactinfo": contactinfo,
@@ -744,6 +755,7 @@ class _SearchDataState extends State<SearchData> {
 
                           _nameController.text = '';
                           _detailsController.text = '';
+                          _addressController.text = '';
                           _priceController.text = '';
                           _resorttimeController.text = '';
                           _contactinfoController.text = '';
@@ -799,6 +811,7 @@ class _SearchDataState extends State<SearchData> {
     if (documentSnapshot != null) {
       _nameController.text = documentSnapshot['name'];
       _detailsController.text = documentSnapshot['details'];
+      _addressController.text = documentSnapshot['address'];
       _priceController.text = documentSnapshot['price'].toString();
       _resorttimeController.text = documentSnapshot['resorttime'];
       _contactinfoController.text = documentSnapshot['contactinfo'];
@@ -854,6 +867,10 @@ class _SearchDataState extends State<SearchData> {
                       decoration: const InputDecoration(labelText: 'Details'),
                     ),
                     TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(labelText: 'Address'),
+                    ),
+                    TextField(
                       controller: _priceController,
                       decoration: const InputDecoration(
                         labelText: 'Price',
@@ -883,8 +900,8 @@ class _SearchDataState extends State<SearchData> {
                       controller: _ratingsController,
                       decoration: const InputDecoration(labelText: 'Ratings'),
                     ),
-                    SizedBox(height: 15),
-                    Text('Location:', style: TextStyle(fontSize: 15)),
+                    const SizedBox(height: 15),
+                    const Text('Location:', style: TextStyle(fontSize: 15)),
                     Wrap(
                       children: <Widget>[
                         Container(
@@ -1479,6 +1496,7 @@ class _SearchDataState extends State<SearchData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -1490,6 +1508,7 @@ class _SearchDataState extends State<SearchData> {
                             "name": name,
                             "price": price,
                             "details": details,
+                            "address": address,
                             'resorttime': resorttime,
                             'contactinfo': contactinfo,
                             'facebook': facebook,
@@ -1512,6 +1531,7 @@ class _SearchDataState extends State<SearchData> {
                           _nameController.text = '';
                           _priceController.text = '';
                           _detailsController.text = '';
+                          _addressController.text = '';
                           _resorttimeController.text = '';
                           _contactinfoController.text = '';
                           _facebookController.text = '';

@@ -20,6 +20,7 @@ class _MagalangDataState extends State<MagalangData> {
       FirebaseFirestore.instance.collection('magalang');
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _resorttimeController = TextEditingController();
   final TextEditingController _contactinfoController = TextEditingController();
@@ -77,6 +78,12 @@ class _MagalangDataState extends State<MagalangData> {
                       controller: _detailsController,
                       decoration: const InputDecoration(
                         labelText: 'Details',
+                      ),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(
+                        labelText: 'Address',
                       ),
                     ),
                     TextField(
@@ -669,6 +676,7 @@ class _MagalangDataState extends State<MagalangData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -679,6 +687,7 @@ class _MagalangDataState extends State<MagalangData> {
                           await _magalang.add({
                             "name": name,
                             "details": details,
+                            "address": address,
                             "price": price,
                             "resorttime": resorttime,
                             "contactinfo": contactinfo,
@@ -701,6 +710,7 @@ class _MagalangDataState extends State<MagalangData> {
 
                           _nameController.text = '';
                           _detailsController.text = '';
+                          _addressController.text = '';
                           _priceController.text = '';
                           _resorttimeController.text = '';
                           _contactinfoController.text = '';
@@ -751,6 +761,8 @@ class _MagalangDataState extends State<MagalangData> {
     if (documentSnapshot != null) {
       _nameController.text = documentSnapshot['name'];
       _detailsController.text = documentSnapshot['details'];
+      _addressController.text = documentSnapshot['address'];
+      _addressController.text = documentSnapshot['address'];
       _priceController.text = documentSnapshot['price'].toString();
       _resorttimeController.text = documentSnapshot['resorttime'];
       _contactinfoController.text = documentSnapshot['contactinfo'];
@@ -803,6 +815,10 @@ class _MagalangDataState extends State<MagalangData> {
                     TextField(
                       controller: _detailsController,
                       decoration: const InputDecoration(labelText: 'Details'),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(labelText: 'Address'),
                     ),
                     TextField(
                       controller: _priceController,
@@ -1412,6 +1428,7 @@ class _MagalangDataState extends State<MagalangData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -1423,6 +1440,7 @@ class _MagalangDataState extends State<MagalangData> {
                             "name": name,
                             "price": price,
                             "details": details,
+                            "address": address,
                             'resorttime': resorttime,
                             'contactinfo': contactinfo,
                             'facebook': facebook,
@@ -1444,6 +1462,7 @@ class _MagalangDataState extends State<MagalangData> {
                           _nameController.text = '';
                           _priceController.text = '';
                           _detailsController.text = '';
+                          _addressController.text = '';
                           _resorttimeController.text = '';
                           _contactinfoController.text = '';
                           _facebookController.text = '';
@@ -1518,12 +1537,13 @@ class _MagalangDataState extends State<MagalangData> {
                             padding: const EdgeInsets.all(10),
                             child: Card(
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.black, width: 1),
+                                side: const BorderSide(
+                                    color: Colors.black, width: 1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Container(
                                 width: 100,
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
@@ -1532,7 +1552,7 @@ class _MagalangDataState extends State<MagalangData> {
                                           .withOpacity(0.5),
                                       spreadRadius: 5,
                                       blurRadius: 7,
-                                      offset: Offset(
+                                      offset: const Offset(
                                           0, 3), // changes position of shadow
                                     ),
                                   ],
@@ -1546,7 +1566,7 @@ class _MagalangDataState extends State<MagalangData> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  leading: Container(
+                                  leading: SizedBox(
                                     height: 50,
                                     width: 50,
                                     child: Image.network(
@@ -1570,15 +1590,16 @@ class _MagalangDataState extends State<MagalangData> {
                                           onPressed: () => showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                              title: new Text('Are you sure?'),
-                                              content: new Text(
+                                              title:
+                                                  const Text('Are you sure?'),
+                                              content: const Text(
                                                   'Do you want to delete this data?'),
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.of(context)
                                                           .pop(false),
-                                                  child: new Text('No'),
+                                                  child: const Text('No'),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
@@ -1586,7 +1607,7 @@ class _MagalangDataState extends State<MagalangData> {
                                                         documentSnapshot.id);
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: new Text('Yes'),
+                                                  child: const Text('Yes'),
                                                 ),
                                               ],
                                             ),
@@ -1602,15 +1623,15 @@ class _MagalangDataState extends State<MagalangData> {
                         }),
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
         ),
         //create
         floatingActionButton: FloatingActionButton(
           onPressed: () => _create(),
-          child: Icon(Ionicons.add_outline),
           backgroundColor: Colors.green.shade700,
+          child: const Icon(Ionicons.add_outline),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }

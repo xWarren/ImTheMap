@@ -7,7 +7,7 @@ import 'package:itm/main/profile.dart';
 import 'package:itm/main/search.dart';
 
 class MainPages extends StatefulWidget {
-  MainPages({Key? key}) : super(key: key);
+  const MainPages({Key? key}) : super(key: key);
 
   @override
   State<MainPages> createState() => _MainPagesState();
@@ -16,8 +16,8 @@ class MainPages extends StatefulWidget {
 class _MainPagesState extends State<MainPages> {
   List pages = [
     HomePage(),
-    SearchPage(),
-    Profile(),
+    const SearchPage(),
+    const Profile(),
   ];
   int currentIndex = 0;
   void onTap(int index) {
@@ -34,7 +34,7 @@ class _MainPagesState extends State<MainPages> {
       bottomNavigationBar: CurvedNavigationBar(
         buttonBackgroundColor: ColorPalette.buttons,
         backgroundColor: ColorPalette.backgroundcolor,
-        items: <Widget>[
+        items: const <Widget>[
           Icon(Ionicons.home, size: 25),
           Icon(Ionicons.search, size: 25),
           Icon(Icons.people, size: 25),

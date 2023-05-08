@@ -32,7 +32,7 @@ class _AboutAppState extends State<AboutApp> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             FadeAnimation(
                 delay: 500,
                 Axis: isHorizontal,
@@ -75,7 +75,7 @@ class _AboutAppState extends State<AboutApp> {
                     textAlign: TextAlign.justify,
                   ),
                 )),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             FadeAnimation(
                 delay: 500,
                 Axis: isHorizontal,
@@ -98,7 +98,7 @@ class _AboutAppState extends State<AboutApp> {
                   delay: 500,
                   Axis: isHorizontal,
                   child: Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.asset(
@@ -114,7 +114,7 @@ class _AboutAppState extends State<AboutApp> {
                   delay: 500,
                   Axis: isHorizontal,
                   child: Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.asset(
@@ -136,7 +136,7 @@ class _AboutAppState extends State<AboutApp> {
                   delay: 500,
                   Axis: isHorizontal,
                   child: Padding(
-                    padding: EdgeInsets.all(25),
+                    padding: const EdgeInsets.all(25),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.asset(
@@ -168,7 +168,7 @@ class _AboutAppState extends State<AboutApp> {
                     )),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               children: [
                 FadeAnimation(

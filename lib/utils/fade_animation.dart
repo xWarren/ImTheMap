@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -10,10 +12,10 @@ class FadeAnimation extends StatefulWidget {
 
   const FadeAnimation(
       {super.key,
-        required this.delay,
-        required this.child,
-        this.Axis = false,
-        this.duration = 1000});
+      required this.delay,
+      required this.child,
+      this.Axis = false,
+      this.duration = 1000});
 
   @override
   _FadeAnimationState createState() => _FadeAnimationState();

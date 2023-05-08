@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:itm/ColorPalettes/color.dart';
@@ -19,7 +18,7 @@ import '../testing/user_class.dart';
 import '../utils/fade_animation.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,35 +30,39 @@ class _HomePageState extends State<HomePage> {
   final maxLines = 1;
   AuthenticateService authenticateService = AuthenticateService();
   final currentUser = FirebaseAuth.instance;
+
   var angelesData =
       FirebaseFirestore.instance.collection("angeles").doc("uid").get();
-  final Query _angeles = FirebaseFirestore.instance
-      .collection('angeles')
-      .orderBy('name', descending: false);
-  final Query _mabalacat = FirebaseFirestore.instance
-      .collection('mabalacat')
-      .orderBy('name', descending: false);
-  final Query _link = FirebaseFirestore.instance
-      .collection('link');
-  final Query _magalang = FirebaseFirestore.instance
-      .collection('magalang')
-      .orderBy('name', descending: false);
+  final Query _angeles =
+      FirebaseFirestore.instance.collection('angeles').orderBy(
+            'RatingStar',
+            descending: true,
+          );
+
+  final Query _mabalacat =
+      FirebaseFirestore.instance.collection('mabalacat').orderBy(
+            'RatingStar',
+            descending: true,
+          );
+  final Query _link = FirebaseFirestore.instance.collection('link');
+  final Query _magalang =
+      FirebaseFirestore.instance.collection('magalang').orderBy(
+            'RatingStar',
+            descending: true,
+          );
   bool myMarkerThumb = true;
   bool _isLoading = true;
   User? user = FirebaseAuth.instance.currentUser;
   UserClass loggedInUser = UserClass();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // 1. Using Timer
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       setState(() {
         _isLoading = false;
       });
     });
-// 2. Future.delayed
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoading = false;
       });
@@ -80,7 +83,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       backgroundColor: ColorPalette.backgroundcolor,
       drawer: Drawer(
@@ -90,31 +93,26 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 UserAccountsDrawerHeader(
-                  accountName:Padding(
+                  accountName: Padding(
                     padding: const EdgeInsets.all(2),
-                    child: Text(
-                       loggedInUser.firstName != null && loggedInUser.lastName !=null
-                           ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
-                           : 'Guest'
-                    ),
+                    child: Text(loggedInUser.firstName != null &&
+                            loggedInUser.lastName != null
+                        ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+                        : 'Guest'),
                   ),
                   accountEmail: Padding(
                     padding: const EdgeInsets.all(2),
-                    child: Text(
-                      loggedInUser.email != null
-                          ? "${loggedInUser.email}"
-                          : ""
-                    ),
+                    child: Text(loggedInUser.email != null
+                        ? "${loggedInUser.email}"
+                        : ""),
                   ),
                   currentAccountPicture: Padding(
                     padding: const EdgeInsets.all(2),
                     child: CircleAvatar(
                       radius: 10.0,
-                      backgroundImage: NetworkImage(
-                          loggedInUser.uid != null
-                              ? "${loggedInUser.image}"
-                              : "${loggedInUser.guest_image}"
-                      ),
+                      backgroundImage: NetworkImage(loggedInUser.uid != null
+                          ? loggedInUser.image
+                          : loggedInUser.guest_image),
                       backgroundColor: Colors.transparent,
                     ),
                   ),
@@ -126,11 +124,13 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         )),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AboutApp()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AboutApp()));
                     },
-                    leading: Icon(Ionicons.information_circle)),
-                SizedBox(height: 20),
+                    leading: const Icon(Ionicons.information_circle)),
+                const SizedBox(height: 20),
                 ListTile(
                     title: Text('Contact us',
                         style: GoogleFonts.robotoMono(
@@ -138,11 +138,12 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         )),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ContactUs()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ContactUs()));
                     },
-                    leading: Icon(Ionicons.call)),
-
+                    leading: const Icon(Ionicons.call)),
                 StreamBuilder(
                     stream: _link.snapshots(),
                     builder:
@@ -154,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                             itemBuilder: (context, index) {
                               final DocumentSnapshot documentSnapshot =
                                   streamSnapshot.data!.docs[index];
-                              return   ListTile(
+                              return ListTile(
                                   title: Text('Rate the app',
                                       style: GoogleFonts.robotoMono(
                                         fontSize: 15,
@@ -162,19 +163,21 @@ class _HomePageState extends State<HomePage> {
                                       )),
                                   onTap: () async {
                                     var url = documentSnapshot['urllink'];
+                                    // ignore: deprecated_member_use
                                     if (await canLaunch(url)) {
-                                    await launch(url);
+                                      // ignore: deprecated_member_use
+                                      await launch(url);
                                     } else {
-                                    throw 'Could not launch $url';
+                                      throw 'Could not launch $url';
                                     }
                                   },
-                                  leading: Icon(Ionicons.star));
+                                  leading: const Icon(Ionicons.star));
                             });
                       } else {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }
                     }),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 ListTile(
                     title: Text('Log out',
                         style: GoogleFonts.robotoMono(
@@ -186,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                           AuthenticateService();
                       authenticateService.logoutUser(context);
                     },
-                    leading: Icon(Ionicons.log_out_outline)),
+                    leading: const Icon(Ionicons.log_out_outline)),
               ],
             )
           ],
@@ -194,7 +197,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: FadeAnimation(
@@ -210,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                           color: ColorPalette.titleColor),
                     ),
                   ))),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FadeAnimation(
@@ -240,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TextPampanga()));
+                                  builder: (context) => const TextPampanga()));
                         },
                         child: Text(
                           'About Pampanga',
@@ -252,11 +255,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
               child: _isLoading
                   ? Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.04),
                         borderRadius:
@@ -271,11 +274,11 @@ class _HomePageState extends State<HomePage> {
                         color: ColorPalette.titleColor,
                       ),
                     )),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Row(
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 200,
                   child: StreamBuilder(
                       stream: _angeles.snapshots(),
@@ -289,7 +292,7 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: [
+                                  children: const [
                                     Skeleton(
                                       height: 180,
                                       width: 120,
@@ -312,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         } else {
                           return ListView.builder(
-                              itemCount: streamSnapshot.data!.docs.length,
+                              itemCount: streamSnapshot.data?.docs.length,
                               scrollDirection: Axis.horizontal,
                               clipBehavior: Clip.none,
                               physics: const BouncingScrollPhysics(),
@@ -331,19 +334,24 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: Container(
                                     width: 160,
-                                    padding: EdgeInsets.all(20),
-                                    margin: EdgeInsets.only(left: 15),
+                                    padding: const EdgeInsets.all(20),
+                                    margin: const EdgeInsets.only(left: 15),
                                     decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(color: ColorPalette.buttons.withOpacity(0.3), width: 0.8),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color: ColorPalette.buttons
+                                                  .withOpacity(0.3),
+                                              width: 0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
                                         color: Colors.black.withOpacity(0.3),
                                         image: DecorationImage(
-                                          image: documentSnapshot['image'] != null
+                                          image: documentSnapshot['image'] !=
+                                                  null
                                               ? NetworkImage(
                                                   documentSnapshot['image'])
-                                              : AssetImage(
+                                              : const AssetImage(
                                                       'assets/images/noImageAvailable.png')
                                                   as ImageProvider,
                                           fit: BoxFit.cover,
@@ -357,11 +365,11 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
               child: _isLoading
                   ? Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.04),
                         borderRadius:
@@ -376,11 +384,11 @@ class _HomePageState extends State<HomePage> {
                         color: ColorPalette.titleColor,
                       ),
                     )),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Row(
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 200,
                   child: StreamBuilder(
                       stream: _mabalacat.snapshots(),
@@ -394,7 +402,7 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: [
+                                  children: const [
                                     Skeleton(
                                       height: 180,
                                       width: 120,
@@ -417,7 +425,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         } else {
                           return ListView.builder(
-                              itemCount: streamSnapshot.data!.docs.length,
+                              itemCount: streamSnapshot.data?.docs.length,
                               scrollDirection: Axis.horizontal,
                               clipBehavior: Clip.none,
                               physics: const BouncingScrollPhysics(),
@@ -436,19 +444,24 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: Container(
                                     width: 160,
-                                    padding: EdgeInsets.all(20),
-                                    margin: EdgeInsets.only(left: 15),
+                                    padding: const EdgeInsets.all(20),
+                                    margin: const EdgeInsets.only(left: 15),
                                     decoration: ShapeDecoration(
                                         shape: RoundedRectangleBorder(
-                                          side: BorderSide(color: ColorPalette.buttons.withOpacity(0.3), width: 0.8),
-                                          borderRadius: BorderRadius.circular(10),
+                                          side: BorderSide(
+                                              color: ColorPalette.buttons
+                                                  .withOpacity(0.3),
+                                              width: 0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         color: Colors.black.withOpacity(0.3),
                                         image: DecorationImage(
+                                          // ignore: unrelated_type_equality_checks
                                           image: myMarkerThumb != 'noImage'
                                               ? NetworkImage(
                                                   documentSnapshot['image'])
-                                              : AssetImage(
+                                              : const AssetImage(
                                                       'assets/images/noImageAvailable.png')
                                                   as ImageProvider,
                                           fit: BoxFit.cover,
@@ -462,11 +475,11 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
               child: _isLoading
                   ? Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.04),
                         borderRadius:
@@ -481,11 +494,11 @@ class _HomePageState extends State<HomePage> {
                         color: ColorPalette.titleColor,
                       ),
                     )),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Row(
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 200,
                   child: StreamBuilder(
                       stream: _magalang.snapshots(),
@@ -499,7 +512,7 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: [
+                                  children: const [
                                     Skeleton(
                                       height: 180,
                                       width: 120,
@@ -522,7 +535,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         } else {
                           return ListView.builder(
-                              itemCount: streamSnapshot.data!.docs.length,
+                              itemCount: streamSnapshot.data?.docs.length,
                               scrollDirection: Axis.horizontal,
                               clipBehavior: Clip.none,
                               physics: const BouncingScrollPhysics(),
@@ -541,19 +554,24 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: Container(
                                     width: 160,
-                                    padding: EdgeInsets.all(20),
-                                    margin: EdgeInsets.only(left: 15),
+                                    padding: const EdgeInsets.all(20),
+                                    margin: const EdgeInsets.only(left: 15),
                                     decoration: ShapeDecoration(
                                         shape: RoundedRectangleBorder(
-                                          side: BorderSide(color: ColorPalette.buttons.withOpacity(0.3), width: 0.8),
-                                          borderRadius: BorderRadius.circular(10),
+                                          side: BorderSide(
+                                              color: ColorPalette.buttons
+                                                  .withOpacity(0.3),
+                                              width: 0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         color: Colors.black.withOpacity(0.3),
                                         image: DecorationImage(
+                                          // ignore: unrelated_type_equality_checks
                                           image: myMarkerThumb != 'noImage'
                                               ? NetworkImage(
                                                   documentSnapshot['image'])
-                                              : AssetImage(
+                                              : const AssetImage(
                                                       'assets/images/noImageAvailable.png')
                                                   as ImageProvider,
                                           fit: BoxFit.cover,
@@ -620,24 +638,24 @@ class _TextPampangaState extends State<TextPampanga> {
           ),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               FadeAnimation(
                   delay: 100,
                   Axis: false,
                   child: Container(
                     width: 300,
                     height: 220,
-                    padding: EdgeInsets.all(20),
-                    margin: EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.only(left: 15),
                     decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: AssetImage('assets/pampanga.jpg'),
                           fit: BoxFit.cover,
                         )),
                   )),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               FadeAnimation(
                   delay: 500,
                   Axis: isHorizontal,

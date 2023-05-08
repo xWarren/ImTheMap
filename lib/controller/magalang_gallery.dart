@@ -3,9 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:itm/ColorPalettes/color.dart';
+
 class MagalangGallery extends StatelessWidget {
   final DocumentSnapshot magalangimage;
-  const MagalangGallery({Key? key, required this.magalangimage}) : super(key: key);
+  const MagalangGallery({Key? key, required this.magalangimage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,6 @@ class MagalangGallery extends StatelessWidget {
     ];
 
     List lobby = [
-
       magalangimage['image3'],
       magalangimage['image4'],
     ];
@@ -36,113 +37,108 @@ class MagalangGallery extends StatelessWidget {
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(swimmingpool[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: swimmingpool.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: new SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(swimmingpool[index]),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: swimmingpool.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     void show2() {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(lobby[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: lobby.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: new SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(lobby[index]),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: lobby.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     void show3() {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(room[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: room.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: new SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(room[index]), fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: room.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     void show4() {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(dining[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: dining.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: new SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(dining[index]),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: dining.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     return Scaffold(
       backgroundColor: ColorPalette.backgroundcolor,
       appBar: AppBar(
@@ -168,11 +164,13 @@ class MagalangGallery extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 10),
-                    Text('Swimming Pool', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    Text(
+                      'Swimming Pool',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -188,22 +186,23 @@ class MagalangGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(magalangimage['image1'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : AssetImage('assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    Text('Lobby', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    Text(
+                      'Lobby',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -219,22 +218,23 @@ class MagalangGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(magalangimage['image3'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : AssetImage('assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    Text('Room', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    Text(
+                      'Room',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -250,22 +250,23 @@ class MagalangGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(magalangimage['image5'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : AssetImage('assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    Text('Dining', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    Text(
+                      'Dining',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -281,22 +282,25 @@ class MagalangGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    // ignore: unrelated_type_equality_checks
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(magalangimage['image7'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : const AssetImage(
+                                                'assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Text('', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    const SizedBox(height: 10),
+                    Text(
+                      '',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                   ],
                 ),
               ),
@@ -307,6 +311,7 @@ class MagalangGallery extends StatelessWidget {
     );
   }
 }
+
 class AlerPop extends StatefulWidget {
   const AlerPop({Key? key}) : super(key: key);
 
@@ -320,4 +325,3 @@ class _AlerPopState extends State<AlerPop> {
     return const Placeholder();
   }
 }
-

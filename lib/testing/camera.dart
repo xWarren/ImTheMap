@@ -1,10 +1,12 @@
-// Import Packages
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Homess extends StatefulWidget {
+  const Homess({super.key});
+
   @override
   _HomessState createState() => _HomessState();
 }
@@ -23,7 +25,7 @@ class _HomessState extends State<Homess> {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 15,
                     left: 25,
                   ),
@@ -31,7 +33,7 @@ class _HomessState extends State<Homess> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.download_rounded),
+                    icon: const Icon(Icons.download_rounded),
                   ),
                 ),
               ],
@@ -41,25 +43,26 @@ class _HomessState extends State<Homess> {
               children: [
                 IconButton(
                     onPressed: () async {
-                      pickedFile = picker.getImage(source: ImageSource.camera)
+                      pickedFile = picker
+                          // ignore: deprecated_member_use
+                          .getImage(source: ImageSource.camera)
                           .whenComplete(() => {setState(() {})});
                     },
-                    icon: Icon(Icons.add)
-                ),
-                SizedBox(
+                    icon: const Icon(Icons.add)),
+                const SizedBox(
                   width: 100,
                 ),
                 IconButton(
                   onPressed: () async {
                     pickedFile = picker
+                        // ignore: deprecated_member_use
                         .getImage(
-                      source: ImageSource.gallery,
-                      maxHeight: 50,
-                      maxWidth: 50
-                    )
+                            source: ImageSource.gallery,
+                            maxHeight: 50,
+                            maxWidth: 50)
                         .whenComplete(() => {setState(() {})});
                   },
-                  icon: Icon(Icons.photo_camera_back),
+                  icon: const Icon(Icons.photo_camera_back),
                 ),
               ],
             ),
@@ -68,11 +71,11 @@ class _HomessState extends State<Homess> {
               builder: (context, snap) {
                 if (snap.hasData) {
                   return Container(
+                    color: Colors.blue,
                     child: Image.file(
                       File(snap.data!.path),
                       fit: BoxFit.contain,
                     ),
-                    color: Colors.blue,
                   );
                 }
                 return Container(

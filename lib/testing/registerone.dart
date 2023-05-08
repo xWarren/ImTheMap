@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, body_might_complete_normally_catch_error
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,225 +34,228 @@ class _RegisterPageState extends State<RegisterPage> {
 
   // firebase auth
   final _auth = FirebaseAuth.instance;
-  @override
   bool toggled = true;
   bool isHorizontal = false;
   bool isVertical = true;
+  @override
   Widget build(BuildContext context) {
     //fullName field
     final firstNameField = FadeAnimation(
       delay: 400,
       Axis: isHorizontal,
-    child: TextFormField(
-      autofocus: false,
-      controller: firstNameController,
-      keyboardType: TextInputType.name,
-      style: const TextStyle(color: Colors.black),
-      validator: (value) {
-        RegExp regex = RegExp(r'^[A-Z-a-z]{1,}$');
-        if (value!.isEmpty) {
-          return ("Please enter first name");
-        }
-        if (!regex.hasMatch(value)) {
-          return ("No Special Characters");
-        }
-        return null;
-      },
-      onSaved: (value) {
-        firstNameController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.person),
-        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        labelText: "First Name",
-        labelStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+      child: TextFormField(
+        autofocus: false,
+        controller: firstNameController,
+        keyboardType: TextInputType.name,
+        style: const TextStyle(color: Colors.black),
+        validator: (value) {
+          RegExp regex = RegExp(r'^[A-Z-a-z]{1,}$');
+          if (value!.isEmpty) {
+            return ("Please enter first name");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("No Special Characters");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          firstNameController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.person),
+          contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          labelText: "First Name",
+          labelStyle:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
       ),
-    ),
     );
 
     //lastName field
-    final lastNameField =
-    FadeAnimation(
+    final lastNameField = FadeAnimation(
       delay: 500,
       Axis: isVertical,
-    child: TextFormField(
-      autofocus: false,
-      controller: lastNameController,
-      keyboardType: TextInputType.name,
-      style: const TextStyle(color: Colors.black),
-      validator: (value) {
-        RegExp regex = RegExp(r'^[A-Z-a-z]{1,}$');
-        if (value!.isEmpty) {
-          return ("Please enter last name");
-        }
-        if (!regex.hasMatch(value)) {
-          return ("No Special Characters");
-        }
-        return null;
-      },
-      onSaved: (value) {
-        lastNameController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.person),
-        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        labelText: "Last Name",
-        labelStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+      child: TextFormField(
+        autofocus: false,
+        controller: lastNameController,
+        keyboardType: TextInputType.name,
+        style: const TextStyle(color: Colors.black),
+        validator: (value) {
+          RegExp regex = RegExp(r'^[A-Z-a-z]{1,}$');
+          if (value!.isEmpty) {
+            return ("Please enter last name");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("No Special Characters");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          lastNameController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.person),
+          contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          labelText: "Last Name",
+          labelStyle:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
       ),
-    ),
     );
 
     //email field
-    final emailField =
-    FadeAnimation(
+    final emailField = FadeAnimation(
       delay: 600,
       Axis: isVertical,
-    child: TextFormField(
-      autofocus: false,
-      controller: emailController,
-      keyboardType: TextInputType.emailAddress,
-      style: const TextStyle(color: Colors.black),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return ("Please enter your Email");
-        }
-        // register expression for email validation
-        if (!RegExp("^[a-zA-Z0-9+_.-]+[@]+[gmail]+[.]+[com]").hasMatch(value)) {
-          return ("Gmail is the only valid email address.");
-        }
-        return null;
-      },
-      onSaved: (value) {
-        emailController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(FontAwesomeIcons.envelope),
-        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        labelText: "Email",
-        labelStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+      child: TextFormField(
+        autofocus: false,
+        controller: emailController,
+        keyboardType: TextInputType.emailAddress,
+        style: const TextStyle(color: Colors.black),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please enter your Email");
+          }
+          // register expression for email validation
+          if (!RegExp("^[a-zA-Z0-9+_.-]+[@]+[gmail]+[.]+[com]")
+              .hasMatch(value)) {
+            return ("Gmail is the only valid email address.");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          emailController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(FontAwesomeIcons.envelope),
+          contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          labelText: "Email",
+          labelStyle:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
       ),
-    ),
     );
 
     //Password field
-    final passwordField =
-    FadeAnimation(
+    final passwordField = FadeAnimation(
       delay: 700,
       Axis: isVertical,
-    child: TextFormField(
-      autofocus: false,
-      controller: passwordController,
-      obscureText: _obscureText,
-      style: const TextStyle(color: Colors.black),
-      validator: (value) {
-        RegExp regex = RegExp(r'^.{6,}$');
-        if (value!.isEmpty) {
-          return ("Please enter your password");
-        }
-        if (!regex.hasMatch(value)) {
-          return ("Enter valid password(Min. 6 Character)");
-        }
-      },
-      onSaved: (value) {
-        passwordController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(FontAwesomeIcons.lock),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
-          child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-        ),
-        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        labelText: "Password",
-        labelStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+      child: TextFormField(
+        autofocus: false,
+        controller: passwordController,
+        obscureText: _obscureText,
+        style: const TextStyle(color: Colors.black),
+        validator: (value) {
+          RegExp regex = RegExp(r'^.{6,}$');
+          if (value!.isEmpty) {
+            return ("Please enter your password");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter valid password(Min. 6 Character)");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          passwordController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(FontAwesomeIcons.lock),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          labelText: "Password",
+          labelStyle:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
       ),
-    ),
     );
 
     //Password field
-    final confirmPasswordField =
-    FadeAnimation(
+    final confirmPasswordField = FadeAnimation(
       delay: 800,
       Axis: isVertical,
-    child: TextFormField(
-      autofocus: false,
-      controller: confirmPasswordController,
-      obscureText: _obscureText,
-      style: const TextStyle(color: Colors.black),
-      validator: (value) {
-        if (confirmPasswordController.text != passwordController.text) {
-          return "Password mismatch";
-        }
-        return null;
-      },
-      onSaved: (value) {
-        confirmPasswordController.text = value!;
-      },
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(FontAwesomeIcons.lock),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
-          child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+      child: TextFormField(
+        autofocus: false,
+        controller: confirmPasswordController,
+        obscureText: _obscureText,
+        style: const TextStyle(color: Colors.black),
+        validator: (value) {
+          if (confirmPasswordController.text != passwordController.text) {
+            return "Password mismatch";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          confirmPasswordController.text = value!;
+        },
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(FontAwesomeIcons.lock),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          labelText: "Confirm Password",
+          labelStyle:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
-        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        labelText: "Confirm Password",
-        labelStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
       ),
     );
 
     //register button
-    final registerButton =  FadeAnimation(
+    final registerButton = FadeAnimation(
       delay: 1000,
       Axis: isHorizontal,
-    child: Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(30),
-      color: ColorPalette.buttons,
-      child: MaterialButton(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        minWidth: 200,
-        onPressed: () {
-          register(emailController.text, passwordController.text);
-        },
-        child: Text(
-          "Register",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.openSans(
-              fontSize: 20,
-              color: ColorPalette.backgroundcolor,
-              fontWeight: FontWeight.w900),
+      child: Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(30),
+        color: ColorPalette.buttons,
+        child: MaterialButton(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          minWidth: 200,
+          onPressed: () {
+            register(emailController.text, passwordController.text);
+          },
+          child: Text(
+            "Register",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.openSans(
+                fontSize: 20,
+                color: ColorPalette.backgroundcolor,
+                fontWeight: FontWeight.w900),
+          ),
         ),
       ),
-    ),
     );
     return Scaffold(
       backgroundColor: ColorPalette.backgroundcolor,
@@ -266,41 +271,41 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                  FadeAnimation(
-                  delay: 100,
-                    Axis: isHorizontal,
-                    child: SizedBox(
-                      width: 250,
-                      child: Image.asset(
-                        'assets/register-design (2).png',
-                        fit: BoxFit.contain,
+                    FadeAnimation(
+                      delay: 100,
+                      Axis: isHorizontal,
+                      child: SizedBox(
+                        width: 250,
+                        child: Image.asset(
+                          'assets/register-design (2).png',
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
-                  ),
                     //Hi!
-                FadeAnimation(
-                  delay: 200,
-                  Axis: isHorizontal,
-                    child: Text(
-                      'Join us!',
-                      style: GoogleFonts.robotoMono(
-                        fontSize: 25,
-                        color: ColorPalette.textColor,
+                    FadeAnimation(
+                      delay: 200,
+                      Axis: isHorizontal,
+                      child: Text(
+                        'Join us!',
+                        style: GoogleFonts.robotoMono(
+                          fontSize: 25,
+                          color: ColorPalette.textColor,
+                        ),
                       ),
                     ),
-                ),
-                    SizedBox(height: 10),
-                FadeAnimation(
-                  delay: 300,
-                  Axis: isHorizontal,
-                    child: Text(
-                      'Discover your perfect resort',
-                      style: GoogleFonts.merriweather(
-                        fontSize: 15,
-                        color: ColorPalette.textColor,
+                    const SizedBox(height: 10),
+                    FadeAnimation(
+                      delay: 300,
+                      Axis: isHorizontal,
+                      child: Text(
+                        'Discover your perfect resort',
+                        style: GoogleFonts.merriweather(
+                          fontSize: 15,
+                          color: ColorPalette.textColor,
+                        ),
                       ),
                     ),
-                ),
                     const SizedBox(height: 15),
                     firstNameField,
                     const SizedBox(height: 15),
@@ -315,47 +320,48 @@ class _RegisterPageState extends State<RegisterPage> {
                     registerButton,
                     const SizedBox(height: 15),
 
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FadeAnimation(
-                          delay: 1100,
-                          Axis: isHorizontal,
-                      child: Text(
-                        "Already have an account?",
-                        style: GoogleFonts.openSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: ColorPalette.titleColor,
-                        ),
-                      ),
-                      ),
-                      FadeAnimation(
-                          delay: 1200,
-                          Axis: isHorizontal,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
-                        },
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.openSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w900,
-                              color: ColorPalette.buttons),
-                        ),
-                      ),
-                      ),
-                    ]),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FadeAnimation(
+                            delay: 1100,
+                            Axis: isHorizontal,
+                            child: Text(
+                              "Already have an account?",
+                              style: GoogleFonts.openSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: ColorPalette.titleColor,
+                              ),
+                            ),
+                          ),
+                          FadeAnimation(
+                            delay: 1200,
+                            Axis: isHorizontal,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()));
+                              },
+                              child: Text(
+                                "Login",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w900,
+                                    color: ColorPalette.buttons),
+                              ),
+                            ),
+                          ),
+                        ]),
                   ],
+                ),
               ),
             ),
           ),
         ),
-      ),
       ),
     );
   }
@@ -392,7 +398,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => Process()),
-            (route) => false);
+        MaterialPageRoute(builder: (context) => const Process()),
+        (route) => false);
   }
 }

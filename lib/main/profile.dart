@@ -6,6 +6,7 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../ColorPalettes/color.dart';
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -14,48 +15,62 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   //launch url
   _launchURL() async {
     const url = 'https://www.facebook.com/ryan.naguit.1';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
   _launchURL1() async {
     const url = 'https://www.facebook.com/nicodungca10gmailcom';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
   _launchURL2() async {
     const url = 'https://www.facebook.com/ca.1693';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
   _launchURL3() async {
     const url = 'https://www.facebook.com/kristine.dayrit.77';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
   _launchURL4() async {
     const url = 'https://www.facebook.com/panjuk.tyamuts';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
   //alert profile
   void showAlert() {
     QuickAlert.show(
@@ -81,16 +96,13 @@ class _ProfileState extends State<Profile> {
           children: [
             GestureDetector(
               onTap: () => _launchURL(),
-              child: Center(
-                  child: Image.asset(
-                      'assets/icons/facebook-icon.png'
-                  )
-              ),
+              child:
+                  Center(child: Image.asset('assets/icons/facebook-icon.png')),
             )
           ],
-        )
-    );
+        ));
   }
+
   void showAlert1() {
     QuickAlert.show(
         context: context,
@@ -115,17 +127,13 @@ class _ProfileState extends State<Profile> {
           children: [
             GestureDetector(
               onTap: () => _launchURL1(),
-              child: Center(
-                  child: Image.asset(
-                      'assets/icons/facebook-icon.png'
-                  )
-              ),
+              child:
+                  Center(child: Image.asset('assets/icons/facebook-icon.png')),
             )
           ],
-        )
-
-    );
+        ));
   }
+
   void showAlert2() {
     QuickAlert.show(
         context: context,
@@ -150,16 +158,13 @@ class _ProfileState extends State<Profile> {
           children: [
             GestureDetector(
               onTap: () => _launchURL2(),
-              child: Center(
-                  child: Image.asset(
-                      'assets/icons/facebook-icon.png'
-                  )
-              ),
+              child:
+                  Center(child: Image.asset('assets/icons/facebook-icon.png')),
             )
           ],
-        )
-    );
+        ));
   }
+
   void showAlert3() {
     QuickAlert.show(
         context: context,
@@ -184,16 +189,13 @@ class _ProfileState extends State<Profile> {
           children: [
             GestureDetector(
               onTap: () => _launchURL3(),
-              child: Center(
-                  child: Image.asset(
-                      'assets/icons/facebook-icon.png'
-                  )
-              ),
+              child:
+                  Center(child: Image.asset('assets/icons/facebook-icon.png')),
             )
           ],
-        )
-    );
+        ));
   }
+
   void showAlert4() {
     QuickAlert.show(
         context: context,
@@ -218,16 +220,13 @@ class _ProfileState extends State<Profile> {
           children: [
             GestureDetector(
               onTap: () => _launchURL4(),
-              child: Center(
-                  child: Image.asset(
-                      'assets/icons/facebook-icon.png'
-                  )
-              ),
+              child:
+                  Center(child: Image.asset('assets/icons/facebook-icon.png')),
             )
           ],
-        )
-    );
+        ));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -235,14 +234,13 @@ class _ProfileState extends State<Profile> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               AutoSizeText(
                 'OUR DEVELOPERS',
                 style: GoogleFonts.openSans(
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
                   color: ColorPalette.titleColor,
-
                 ),
               ),
               AutoSizeText(
@@ -253,14 +251,14 @@ class _ProfileState extends State<Profile> {
                   color: ColorPalette.textColor,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     showAlert();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: ColorPalette.backgroundcolor,
+                    backgroundColor: ColorPalette.backgroundcolor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -268,28 +266,28 @@ class _ProfileState extends State<Profile> {
                       Card(
                         semanticContainer: true,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Image.network(
-                          'https://i.ibb.co/165W9D7/mark.jpg',
-                          fit: BoxFit.fill,
-                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        child: Image.network(
+                          'https://i.ibb.co/165W9D7/mark.jpg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     showAlert1();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: ColorPalette.backgroundcolor,
+                    backgroundColor: ColorPalette.backgroundcolor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -297,28 +295,28 @@ class _ProfileState extends State<Profile> {
                       Card(
                         semanticContainer: true,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Image.network(
-                          'https://i.ibb.co/c2pJ54s/nico.jpg',
-                          fit: BoxFit.fill,
-                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        child: Image.network(
+                          'https://i.ibb.co/c2pJ54s/nico.jpg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     showAlert2();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: ColorPalette.backgroundcolor,
+                    backgroundColor: ColorPalette.backgroundcolor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -326,28 +324,28 @@ class _ProfileState extends State<Profile> {
                       Card(
                         semanticContainer: true,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Image.network(
-                          'https://i.ibb.co/9t5yfCz/carol.jpg',
-                          fit: BoxFit.fill,
-                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        child: Image.network(
+                          'https://i.ibb.co/9t5yfCz/carol.jpg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     showAlert3();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: ColorPalette.backgroundcolor,
+                    backgroundColor: ColorPalette.backgroundcolor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -355,28 +353,28 @@ class _ProfileState extends State<Profile> {
                       Card(
                         semanticContainer: true,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Image.network(
-                          'https://i.ibb.co/qFSwSXD/kristine.jpg',
-                          fit: BoxFit.fill,
-                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        child: Image.network(
+                          'https://i.ibb.co/qFSwSXD/kristine.jpg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     showAlert4();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: ColorPalette.backgroundcolor,
+                    backgroundColor: ColorPalette.backgroundcolor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -384,24 +382,23 @@ class _ProfileState extends State<Profile> {
                       Card(
                         semanticContainer: true,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Image.network(
-                          'https://i.ibb.co/9tX9rH7/5.jpg',
-                          fit: BoxFit.fill,
-                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        child: Image.network(
+                          'https://i.ibb.co/9tX9rH7/5.jpg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
-        )
-    );
+        ));
   }
 }

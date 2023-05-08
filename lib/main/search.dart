@@ -23,7 +23,7 @@ class _SearchPageState extends State<SearchPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -32,8 +32,9 @@ class _SearchPageState extends State<SearchPage> {
               ),
               child: Card(
                 child: TextField(
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search), hintText: 'Search Resort....'),
+                  decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'Search Resort....'),
                   onChanged: (val) {
                     setState(() {
                       name = val;
@@ -44,37 +45,38 @@ class _SearchPageState extends State<SearchPage> {
             ),
             //search collection
             StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('search').orderBy('name', descending: false).snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection('search')
+                    .orderBy('name', descending: false)
+                    .snapshots(),
                 builder: (context, snapshot) {
                   return (snapshot.connectionState == ConnectionState.waiting)
-                      ? Center(child: Text(''))
+                      ? const Center(child: Text(''))
                       : ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             DocumentSnapshot data = snapshot.data!.docs[index];
                             if (name.isEmpty) {
                               return Container(
-                                padding: EdgeInsets.only(top: 16),
+                                padding: const EdgeInsets.only(top: 16),
                                 child: Column(
                                   children: [
                                     ListTile(
                                       title: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: data['name'] + " - " + data['default_choice'],
-                                                style: GoogleFonts.openSans(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: ColorPalette.titleColor
-                                                ),
-                                              ),
-                                          ]
-                                        )
-                                      ),
+                                          text: TextSpan(children: [
+                                        TextSpan(
+                                          text: data['name'] +
+                                              " - " +
+                                              data['default_choice'],
+                                          style: GoogleFonts.openSans(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: ColorPalette.titleColor),
+                                        ),
+                                      ])),
                                       trailing: GestureDetector(
                                         onTap: () {
                                           Navigator.push(
@@ -82,9 +84,10 @@ class _SearchPageState extends State<SearchPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       SearchView(
-                                                          searchSnapshot: data)));
+                                                          documentSnapshot:
+                                                              data)));
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.open_in_new,
                                           color: ColorPalette.buttons,
                                           size: 20,
@@ -94,26 +97,28 @@ class _SearchPageState extends State<SearchPage> {
                                   ],
                                 ),
                               );
-                            } if (data['name'].toString().toLowerCase().startsWith(name.toLowerCase())) {
+                            }
+                            if (data['name']
+                                .toString()
+                                .toLowerCase()
+                                .startsWith(name.toLowerCase())) {
                               return Container(
-                                padding: EdgeInsets.only(top: 16),
+                                padding: const EdgeInsets.only(top: 16),
                                 child: Column(
                                   children: [
                                     ListTile(
                                       title: RichText(
-                                          text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: data['name'] + " - " + data['default_choice'],
-                                                  style: GoogleFonts.openSans(
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: ColorPalette.titleColor
-                                                  ),
-                                                ),
-                                              ]
-                                          )
-                                      ),
+                                          text: TextSpan(children: [
+                                        TextSpan(
+                                          text: data['name'] +
+                                              " - " +
+                                              data['default_choice'],
+                                          style: GoogleFonts.openSans(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: ColorPalette.titleColor),
+                                        ),
+                                      ])),
                                       trailing: GestureDetector(
                                         onTap: () {
                                           Navigator.push(
@@ -121,9 +126,10 @@ class _SearchPageState extends State<SearchPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       SearchView(
-                                                          searchSnapshot: data)));
+                                                          documentSnapshot:
+                                                              data)));
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.open_in_new,
                                           color: ColorPalette.buttons,
                                           size: 20,

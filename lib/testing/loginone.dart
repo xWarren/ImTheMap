@@ -1,15 +1,16 @@
+// ignore_for_file: library_private_types_in_public_api, body_might_complete_normally_catch_error
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:itm/ColorPalettes/color.dart';
 import 'package:itm/authenticator/process.dart';
+import 'package:itm/testing/admin_login.dart';
 import 'package:itm/testing/registerone.dart';
 
 import '../utils/fade_animation.dart';
-import 'forgot_password.dart';
 import 'helper.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,10 +34,10 @@ class _LoginPageState extends State<LoginPage> {
   final _auth = FirebaseAuth.instance;
 
   AuthenticateService authenticateService = AuthenticateService();
-  @override
   bool toggled = true;
   bool isHorizontal = false;
   bool isVertical = true;
+  @override
   Widget build(BuildContext context) {
     //email field
     final emailField = FadeAnimation(
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextFormField(
         autofocus: false,
         controller: emailController,
-        style: TextStyle(color: ColorPalette.textColor),
+        style: const TextStyle(color: ColorPalette.textColor),
         keyboardType: TextInputType.emailAddress,
         validator: (value) {
           if (value!.isEmpty) {
@@ -177,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   FadeAnimation(
                     delay: 300,
                     Axis: isHorizontal,
@@ -190,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   emailField,
                   const SizedBox(height: 20),
                   passwordField,
@@ -208,10 +209,11 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ForgotPassword()));
+                                      builder: (context) =>
+                                          const AdminLogin()));
                             },
                             child: Text(
-                              'Forgot Password?',
+                              'Admin Login',
                               style: GoogleFonts.openSans(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900,
@@ -248,7 +250,8 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterPage()));
+                                      builder: (context) =>
+                                          const RegisterPage()));
                             },
                             child: Text(
                               "Register",
@@ -296,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Process())),
+                    MaterialPageRoute(builder: (context) => const Process())),
               })
           .catchError((e) {
         Fluttertoast.showToast(

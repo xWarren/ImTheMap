@@ -17,7 +17,6 @@ class SearchGallery extends StatelessWidget {
     ];
 
     List lobby = [
-
       searchimage['image3'],
       searchimage['image4'],
     ];
@@ -37,113 +36,108 @@ class SearchGallery extends StatelessWidget {
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(swimmingpool[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: swimmingpool.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: const SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(swimmingpool[index]),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: swimmingpool.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     void show2() {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(lobby[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: lobby.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: const SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(lobby[index]),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: lobby.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     void show3() {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(room[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: room.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: const SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(room[index]), fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: room.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     void show4() {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (_) => Swiper(
-            itemWidth: 400,
-            itemHeight: 225,
-            loop: true,
-            duration: 1200,
-            control: new SwiperControl(),
-            itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(dining[index]),
-                    fit: BoxFit.fill),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: dining.length,
-            layout: SwiperLayout.STACK,
-          )
-      );
-
+                itemWidth: 400,
+                itemHeight: 225,
+                loop: true,
+                duration: 1200,
+                control: const SwiperControl(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(dining[index]),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(20)),
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: dining.length,
+                layout: SwiperLayout.STACK,
+              ));
     }
+
     return Scaffold(
       backgroundColor: ColorPalette.backgroundcolor,
       appBar: AppBar(
@@ -168,12 +162,14 @@ class SearchGallery extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
-                    Text('Swimming Pool', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Swimming Pool',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -189,22 +185,25 @@ class SearchGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    // ignore: unrelated_type_equality_checks
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(searchimage['image1'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : const AssetImage(
+                                                'assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Text('Lobby', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Lobby',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -220,22 +219,25 @@ class SearchGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    // ignore: unrelated_type_equality_checks
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(searchimage['image3'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : const AssetImage(
+                                                'assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Text('Room', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Room',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -251,22 +253,25 @@ class SearchGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    // ignore: unrelated_type_equality_checks
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(searchimage['image5'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : const AssetImage(
+                                                'assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Text('Dining', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Dining',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -282,22 +287,25 @@ class SearchGallery extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                    image:  myMarkerThumb != 'noImage'
+                                    // ignore: unrelated_type_equality_checks
+                                    image: myMarkerThumb != 'noImage'
                                         ? NetworkImage(searchimage['image7'])
-                                        : AssetImage('assets/no_image.jpg') as ImageProvider,
-                                    fit: BoxFit.fill
-                                )
-                            ),
+                                        : const AssetImage(
+                                                'assets/no_image.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Text('', style: GoogleFonts.openSans(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: ColorPalette.titleColor
-                    ),),
+                    const SizedBox(height: 10),
+                    Text(
+                      '',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.titleColor),
+                    ),
                   ],
                 ),
               ),

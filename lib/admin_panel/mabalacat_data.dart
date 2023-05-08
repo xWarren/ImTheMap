@@ -21,6 +21,7 @@ class _MabalacatDataState extends State<MabalacatData> {
       FirebaseFirestore.instance.collection('mabalacat');
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _resorttimeController = TextEditingController();
   final TextEditingController _contactinfoController = TextEditingController();
@@ -78,6 +79,12 @@ class _MabalacatDataState extends State<MabalacatData> {
                       controller: _detailsController,
                       decoration: const InputDecoration(
                         labelText: 'Details',
+                      ),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(
+                        labelText: 'Address',
                       ),
                     ),
                     TextField(
@@ -638,6 +645,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -648,6 +656,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                           await _mabalacat.add({
                             "name": name,
                             "details": details,
+                            "address": address,
                             "price": price,
                             "resorttime": resorttime,
                             "contactinfo": contactinfo,
@@ -670,6 +679,7 @@ class _MabalacatDataState extends State<MabalacatData> {
 
                           _nameController.text = '';
                           _detailsController.text = '';
+                          _addressController.text = '';
                           _priceController.text = '';
                           _resorttimeController.text = '';
                           _contactinfoController.text = '';
@@ -720,6 +730,7 @@ class _MabalacatDataState extends State<MabalacatData> {
     if (documentSnapshot != null) {
       _nameController.text = documentSnapshot['name'];
       _detailsController.text = documentSnapshot['details'];
+      _addressController.text = documentSnapshot['address'];
       _priceController.text = documentSnapshot['price'].toString();
       _resorttimeController.text = documentSnapshot['resorttime'];
       _contactinfoController.text = documentSnapshot['contactinfo'];
@@ -772,6 +783,10 @@ class _MabalacatDataState extends State<MabalacatData> {
                     TextField(
                       controller: _detailsController,
                       decoration: const InputDecoration(labelText: 'Details'),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(labelText: 'Address'),
                     ),
                     TextField(
                       controller: _priceController,
@@ -1378,6 +1393,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -1389,6 +1405,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                             "name": name,
                             "price": price,
                             "details": details,
+                            "address": address,
                             'resorttime': resorttime,
                             'contactinfo': contactinfo,
                             'facebook': facebook,
@@ -1410,6 +1427,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                           _nameController.text = '';
                           _priceController.text = '';
                           _detailsController.text = '';
+                          _addressController.text = '';
                           _resorttimeController.text = '';
                           _contactinfoController.text = '';
                           _facebookController.text = '';
@@ -1516,7 +1534,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  leading: Container(
+                                  leading: SizedBox(
                                     height: 50,
                                     width: 50,
                                     child: Image.network(
@@ -1540,15 +1558,16 @@ class _MabalacatDataState extends State<MabalacatData> {
                                           onPressed: () => showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                              title: new Text('Are you sure?'),
-                                              content: new Text(
+                                              title:
+                                                  const Text('Are you sure?'),
+                                              content: const Text(
                                                   'Do you want to delete this data?'),
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.of(context)
                                                           .pop(false),
-                                                  child: new Text('No'),
+                                                  child: const Text('No'),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
@@ -1556,7 +1575,7 @@ class _MabalacatDataState extends State<MabalacatData> {
                                                         documentSnapshot.id);
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: new Text('Yes'),
+                                                  child: const Text('Yes'),
                                                 ),
                                               ],
                                             ),
@@ -1579,8 +1598,8 @@ class _MabalacatDataState extends State<MabalacatData> {
         //create
         floatingActionButton: FloatingActionButton(
           onPressed: () => _create(),
-          child: const Icon(Ionicons.add_outline),
           backgroundColor: Colors.green.shade700,
+          child: const Icon(Ionicons.add_outline),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }

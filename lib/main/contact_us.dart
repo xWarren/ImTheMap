@@ -16,12 +16,12 @@ class ContactUs extends StatefulWidget {
 class _ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
-    final CollectionReference _contact =
+    final CollectionReference contact =
         FirebaseFirestore.instance.collection('contact');
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _messageController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController messageController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
 
     bool isHorizontal = false;
     return Scaffold(
@@ -39,9 +39,9 @@ class _ContactUsState extends State<ContactUs> {
       body: Center(
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 20,
                 left: 20,
                 right: 20,
@@ -53,36 +53,30 @@ class _ContactUsState extends State<ContactUs> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Center(
-                      child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'We are a responsive developer and admin',
-                                style: GoogleFonts.openSans(
-                                  color: ColorPalette.titleColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w800
-                                )
-                              ),
-                            ]
-                          ))
-                    ),
-                    SizedBox(height: 5),
+                        child: RichText(
+                            text: TextSpan(children: [
+                      TextSpan(
+                          text: 'We are a responsive developer and admin',
+                          style: GoogleFonts.openSans(
+                              color: ColorPalette.titleColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800)),
+                    ]))),
+                    const SizedBox(height: 5),
                     RichText(
-                        text: TextSpan(
-                            children: [
-                              TextSpan(
-                                  text: 'If you encounter an error or any questions about the application, Just fill out the form below.',
-                                  style: GoogleFonts.openSans(
-                                    color: ColorPalette.titleColor,
-                                    fontSize: 14,
-                                  ),
-                                spellOut: true,
-                              ),
-                            ]
-                        )),
+                        text: TextSpan(children: [
+                      TextSpan(
+                        text:
+                            'If you encounter an error or any questions about the application, Just fill out the form below.',
+                        style: GoogleFonts.openSans(
+                          color: ColorPalette.titleColor,
+                          fontSize: 14,
+                        ),
+                        spellOut: true,
+                      ),
+                    ])),
                     TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -96,7 +90,7 @@ class _ContactUsState extends State<ContactUs> {
                       ),
                     ),
                     TextFormField(
-                      controller: _emailController,
+                      controller: emailController,
                       // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -111,7 +105,7 @@ class _ContactUsState extends State<ContactUs> {
                     ),
                     TextFormField(
                       maxLines: 10,
-                      controller: _messageController,
+                      controller: messageController,
                       // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -121,54 +115,60 @@ class _ContactUsState extends State<ContactUs> {
                       },
                       decoration: const InputDecoration(
                           prefixIcon: Icon(Ionicons.chatbox),
-                          labelText: 'Message', border: InputBorder.none),
+                          labelText: 'Message',
+                          border: InputBorder.none),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: ColorPalette.buttons),
                       onPressed: () async {
                         // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data',
-                            style: GoogleFonts.openSans(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: ColorPalette.titleColor)),
-                              backgroundColor: ColorPalette.backgroundcolor,
-                            ),
-                          );
-                          final String name = _nameController.text;
-                          final String email = _emailController.text;
-                          final String message = _messageController.text;
-                          if (name != null) {
-                            await _contact.add({
-                              "name": name,
-                              "email": email,
-                              "message": message
-                            });
-                            _nameController.text = '';
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Message Sent!',
+                            SnackBar(
+                              content: Text('Processing Data',
                                   style: GoogleFonts.openSans(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                       color: ColorPalette.titleColor)),
-                                backgroundColor: ColorPalette.backgroundcolor,
-                              ),
-                            );
-                          }
+                              backgroundColor: ColorPalette.backgroundcolor,
+                            ),
+                          );
+                          final String name = nameController.text;
+                          final String email = emailController.text;
+                          final String message = messageController.text;
+                          await contact.add({
+                            "name": name,
+                            "email": email,
+                            "message": message
+                          });
+                          nameController.text = '';
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).pop();
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Message Sent!',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorPalette.titleColor)),
+                              backgroundColor: ColorPalette.backgroundcolor,
+                            ),
+                          );
                         }
                       },
-                      child: Center(child: Text('Submit',
+                      child: Center(
+                          child: Text(
+                        'Submit',
                         style: GoogleFonts.openSans(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           color: ColorPalette.backgroundcolor,
-                        ),)),
+                        ),
+                      )),
                     ),
                   ],
                 ),

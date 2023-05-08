@@ -20,12 +20,14 @@ class _AngelesDataState extends State<AngelesData> {
       FirebaseFirestore.instance.collection('angeles');
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _resorttimeController = TextEditingController();
   final TextEditingController _contactinfoController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _ratingsController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
   /// Variables
   File? imageFile;
@@ -78,6 +80,12 @@ class _AngelesDataState extends State<AngelesData> {
                       controller: _detailsController,
                       decoration: const InputDecoration(
                         labelText: 'Details',
+                      ),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(
+                        labelText: 'Address',
                       ),
                     ),
                     TextField(
@@ -679,6 +687,8 @@ class _AngelesDataState extends State<AngelesData> {
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
+                        final String message = _messageController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
@@ -688,6 +698,8 @@ class _AngelesDataState extends State<AngelesData> {
                         await _angeles.add({
                           "name": name,
                           "details": details,
+                          "address": address,
+                          "message": message,
                           "price": price,
                           "resorttime": resorttime,
                           "contactinfo": contactinfo,
@@ -710,6 +722,8 @@ class _AngelesDataState extends State<AngelesData> {
 
                         _nameController.text = '';
                         _detailsController.text = '';
+                        _messageController.text = '';
+                        _addressController.text = '';
                         _priceController.text = '';
                         _resorttimeController.text = '';
                         _contactinfoController.text = '';
@@ -761,6 +775,7 @@ class _AngelesDataState extends State<AngelesData> {
     if (documentSnapshot != null) {
       _nameController.text = documentSnapshot['name'];
       _detailsController.text = documentSnapshot['details'];
+      _addressController.text = documentSnapshot['address'];
       _priceController.text = documentSnapshot['price'].toString();
       _resorttimeController.text = documentSnapshot['resorttime'];
       _contactinfoController.text = documentSnapshot['contactinfo'];
@@ -813,6 +828,10 @@ class _AngelesDataState extends State<AngelesData> {
                     TextField(
                       controller: _detailsController,
                       decoration: const InputDecoration(labelText: 'Details'),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(labelText: 'Address'),
                     ),
                     TextField(
                       controller: _priceController,
@@ -1300,9 +1319,9 @@ class _AngelesDataState extends State<AngelesData> {
                               //Some error occured
                             }
                           },
-                          child: Text("Feedback 1"),
+                          child: const Text("Feedback 1"),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         ElevatedButton(
@@ -1312,7 +1331,7 @@ class _AngelesDataState extends State<AngelesData> {
                           onPressed: () async {
                             if (imageUrl.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                       content: Text('Please upload an image')));
                             }
                             _getFromGallery();
@@ -1345,12 +1364,12 @@ class _AngelesDataState extends State<AngelesData> {
                               //Some error occured
                             }
                           },
-                          child: Text("Feedback 2"),
+                          child: const Text("Feedback 2"),
                         ),
                       ],
                     ),
                     //image 11
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -1361,7 +1380,7 @@ class _AngelesDataState extends State<AngelesData> {
                           onPressed: () async {
                             if (imageUrl.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                       content: Text('Please upload an image')));
                             }
                             _getFromGallery();
@@ -1394,7 +1413,7 @@ class _AngelesDataState extends State<AngelesData> {
                               //Some error occured
                             }
                           },
-                          child: Text("Feedback 3"),
+                          child: const Text("Feedback 3"),
                         ),
                       ],
                     ),
@@ -1402,61 +1421,62 @@ class _AngelesDataState extends State<AngelesData> {
                       height: 20,
                     ),
                     ElevatedButton(
-                      child: Center(child: const Text('Update')),
+                      child: const Center(child: Text('Update')),
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
+                        final String address = _addressController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
                         final String contactinfo = _contactinfoController.text;
                         final String facebook = _facebookController.text;
                         final String location = _locationController.text;
                         final String ratings = _ratingsController.text;
-                        if (price != null) {
-                          await _angeles.doc(documentSnapshot!.id).update({
-                            "name": name,
-                            "price": price,
-                            "details": details,
-                            'resorttime': resorttime,
-                            'contactinfo': contactinfo,
-                            'facebook': facebook,
-                            'location': location,
-                            'ratings': ratings,
-                            "image": imageUrl,
-                            'image1': image1,
-                            'image2': image2,
-                            'image3': image3,
-                            'image4': image4,
-                            'image5': image5,
-                            'image6': image6,
-                            'image7': image7,
-                            'image8': image8,
-                            'feedback1': feedback1,
-                            'feedback2': feedback2,
-                            'feedback3': feedback3
-                          });
-                          _nameController.text = '';
-                          _priceController.text = '';
-                          _detailsController.text = '';
-                          _resorttimeController.text = '';
-                          _contactinfoController.text = '';
-                          _facebookController.text = '';
-                          _locationController.text = '';
-                          _ratingsController.text = '';
-                          imageUrl = '';
-                          image1 = '';
-                          image2 = '';
-                          image3 = '';
-                          image4 = '';
-                          image5 = '';
-                          image6 = '';
-                          image7 = '';
-                          image8 = '';
-                          feedback1 = '';
-                          feedback2 = '';
-                          feedback3 = '';
-                          Navigator.of(context).pop();
-                        }
+                        await _angeles.doc(documentSnapshot!.id).update({
+                          "name": name,
+                          "price": price,
+                          "details": details,
+                          "address": address,
+                          'resorttime': resorttime,
+                          'contactinfo': contactinfo,
+                          'facebook': facebook,
+                          'location': location,
+                          'ratings': ratings,
+                          "image": imageUrl,
+                          'image1': image1,
+                          'image2': image2,
+                          'image3': image3,
+                          'image4': image4,
+                          'image5': image5,
+                          'image6': image6,
+                          'image7': image7,
+                          'image8': image8,
+                          'feedback1': feedback1,
+                          'feedback2': feedback2,
+                          'feedback3': feedback3
+                        });
+                        _nameController.text = '';
+                        _priceController.text = '';
+                        _detailsController.text = '';
+                        _addressController.text = '';
+                        _resorttimeController.text = '';
+                        _contactinfoController.text = '';
+                        _facebookController.text = '';
+                        _locationController.text = '';
+                        _ratingsController.text = '';
+                        imageUrl = '';
+                        image1 = '';
+                        image2 = '';
+                        image3 = '';
+                        image4 = '';
+                        image5 = '';
+                        image6 = '';
+                        image7 = '';
+                        image8 = '';
+                        feedback1 = '';
+                        feedback2 = '';
+                        feedback3 = '';
+                        Navigator.of(context).pop();
                       },
                     )
                   ],
