@@ -122,9 +122,7 @@ class _AngelesPageState extends State<AngelesPage> {
                             onRatingUpdate: (rating) {
                               setState(() {
                                 _rating = rating;
-                                if (_rating == 5) {
-                                  print('User chose 5 stars!');
-                                }
+                                if (_rating == 5) {}
                               });
                             },
                           ),

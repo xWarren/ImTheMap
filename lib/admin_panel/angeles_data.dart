@@ -37,6 +37,7 @@ class _AngelesDataState extends State<AngelesData> {
   String image1 = '';
   String image2 = '';
   String image3 = '';
+  final double _ratings = 3;
   String image4 = '';
   String image5 = '';
   String image6 = '';
@@ -144,7 +145,6 @@ class _AngelesDataState extends State<AngelesData> {
                         //Create a reference for the image to be stored
                         Reference referenceImageToUpload =
                             referenceDirImages.child(uniqueFileName);
-                        String url;
                         //Handle errors or success
                         try {
                           //Store the file
@@ -153,7 +153,6 @@ class _AngelesDataState extends State<AngelesData> {
                           //Success: get download url
                           imageUrl =
                               await referenceImageToUpload.getDownloadURL();
-                          url = imageUrl.toString();
                         } catch (error) {
                           //Some error occured
                         }
@@ -682,12 +681,68 @@ class _AngelesDataState extends State<AngelesData> {
                       "Image:$imageUrl",
                       style: const TextStyle(color: Colors.black, fontSize: 15),
                     ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Pool Image 1: $image1",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Pool Image 2: $image2",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Lobby 1: $image3",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Lobby 2: $image4",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Room 1: $image5",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Room 2: $image6",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Dining 1: $image7",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Dining 2: $image8",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Feedback 1: $feedback1",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Feedback 2: $feedback2",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Feedback 3: $feedback3",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
                     ElevatedButton(
                       child: const Center(child: Text('Create')),
                       onPressed: () async {
                         final String name = _nameController.text;
                         final String details = _detailsController.text;
                         final String address = _addressController.text;
+                        final double rating = _ratings;
                         final String message = _messageController.text;
                         final String price = _priceController.text;
                         final String resorttime = _resorttimeController.text;
@@ -698,6 +753,8 @@ class _AngelesDataState extends State<AngelesData> {
                         await _angeles.add({
                           "name": name,
                           "details": details,
+                          "myArray": FieldValue.arrayUnion(["Awesome"]),
+                          "RatingStar": FieldValue.arrayUnion([rating]),
                           "address": address,
                           "message": message,
                           "price": price,
@@ -1419,6 +1476,65 @@ class _AngelesDataState extends State<AngelesData> {
                     ),
                     const SizedBox(
                       height: 20,
+                    ),
+                    Text(
+                      "Image:$imageUrl",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Pool Image 1: $image1",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Pool Image 2: $image2",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Lobby 1: $image3",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Lobby 2: $image4",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Room 1: $image5",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Room 2: $image6",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Dining 1: $image7",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Dining 2: $image8",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Feedback 1: $feedback1",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Feedback 2: $feedback2",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Feedback 3: $feedback3",
+                      style: const TextStyle(color: Colors.black, fontSize: 15),
                     ),
                     ElevatedButton(
                       child: const Center(child: Text('Update')),
