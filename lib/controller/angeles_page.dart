@@ -502,13 +502,12 @@ class _AngelesPageState extends State<AngelesPage> {
                                   Axis: false,
                                   child: widget
                                           .documentSnapshot['myArray'].isEmpty
-                                      ? Center(child: Text('No reviews yet'))
+                                      ? const Center(
+                                          child: Text('No reviews yet'))
                                       : ListView.builder(
-                                          itemCount: myMarkerThumb != 'noImage'
-                                              ? 0
-                                              : widget
-                                                  .documentSnapshot['myArray']
-                                                  .length,
+                                          itemCount: widget
+                                              .documentSnapshot['myArray']
+                                              .length,
                                           shrinkWrap: true,
                                           physics:
                                               const NeverScrollableScrollPhysics(),
@@ -563,7 +562,7 @@ class _AngelesPageState extends State<AngelesPage> {
                                                                         .documentSnapshot[
                                                                             'myArray']
                                                                         .isEmpty
-                                                                    ? Center(
+                                                                    ? const Center(
                                                                         child: Text(
                                                                             'No reviews yet'))
                                                                     : widget.documentSnapshot[

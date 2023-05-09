@@ -505,78 +505,97 @@ class _SearchViewState extends State<SearchView> {
                                 child: FadeAnimation(
                                   delay: 800,
                                   Axis: false,
-                                  child: ListView.builder(
-                                      itemCount: widget
-                                          .documentSnapshot['myArray'].length,
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Card(
-                                            color: ColorPalette.backgroundcolor,
-                                            elevation: 5,
-                                            child: Row(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 20.0,
-                                                  backgroundImage: NetworkImage(
-                                                      loggedInUser.uid != null
-                                                          ? loggedInUser.image
-                                                          : loggedInUser
-                                                              .guest_image),
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                ),
-                                                const SizedBox(width: 10),
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Column(
+                                  child: widget
+                                          .documentSnapshot['myArray'].isEmpty
+                                      ? const Center(
+                                          child: Text('No reviews yet'))
+                                      : ListView.builder(
+                                          itemCount: widget
+                                              .documentSnapshot['myArray']
+                                              .length,
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: Card(
+                                                color: ColorPalette
+                                                    .backgroundcolor,
+                                                elevation: 5,
+                                                child: Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 20.0,
+                                                      backgroundImage:
+                                                          NetworkImage(loggedInUser
+                                                                      .uid !=
+                                                                  null
+                                                              ? loggedInUser
+                                                                  .image
+                                                              : loggedInUser
+                                                                  .guest_image),
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Expanded(
+                                                      child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text(loggedInUser
-                                                                          .firstName !=
-                                                                      null &&
-                                                                  loggedInUser
-                                                                          .lastName !=
-                                                                      null
-                                                              ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
-                                                              : 'Anonymous'),
-                                                          _buildRating(index),
-                                                          Text(
-                                                            widget.documentSnapshot[
-                                                                    'myArray']
-                                                                [index],
-                                                            style: GoogleFonts
-                                                                .openSans(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: ColorPalette
-                                                                  .titleColor,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .justify,
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(loggedInUser
+                                                                              .firstName !=
+                                                                          null &&
+                                                                      loggedInUser
+                                                                              .lastName !=
+                                                                          null
+                                                                  ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+                                                                  : 'Anonymous'),
+                                                              _buildRating(
+                                                                  index),
+                                                              Text(
+                                                                widget
+                                                                        .documentSnapshot[
+                                                                            'myArray']
+                                                                        .isEmpty
+                                                                    ? const Center(
+                                                                        child: Text(
+                                                                            'No reviews yet'))
+                                                                    : widget.documentSnapshot[
+                                                                            'myArray']
+                                                                        [index],
+                                                                style: GoogleFonts
+                                                                    .openSans(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: ColorPalette
+                                                                      .titleColor,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .justify,
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    const Divider(thickness: 2),
+                                                  ],
                                                 ),
-                                                const Divider(thickness: 2),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }),
+                                              ),
+                                            );
+                                          }),
                                 ),
                               ),
                             ],

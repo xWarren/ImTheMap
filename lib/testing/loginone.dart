@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:itm/ColorPalettes/color.dart';
 import 'package:itm/authenticator/process.dart';
 import 'package:itm/testing/admin_login.dart';
+import 'package:itm/testing/forgot_password.dart';
 import 'package:itm/testing/registerone.dart';
 
 import '../utils/fade_animation.dart';
@@ -34,6 +35,8 @@ class _LoginPageState extends State<LoginPage> {
   final _auth = FirebaseAuth.instance;
 
   AuthenticateService authenticateService = AuthenticateService();
+  int emailLength = 0;
+  int passwordLength = 0;
   bool toggled = true;
   bool isHorizontal = false;
   bool isVertical = true;
@@ -44,6 +47,11 @@ class _LoginPageState extends State<LoginPage> {
       delay: 400,
       Axis: isVertical,
       child: TextFormField(
+        onChanged: (text) {
+          setState(() {
+            emailLength = text.length;
+          });
+        },
         autofocus: false,
         controller: emailController,
         style: const TextStyle(color: ColorPalette.textColor),
@@ -64,13 +72,21 @@ class _LoginPageState extends State<LoginPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: const Icon(FontAwesomeIcons.solidAddressCard),
+          prefixIcon: Icon(
+            FontAwesomeIcons.solidAddressCard,
+            color: emailLength < 5 ? Colors.grey : Colors.blue,
+          ),
           contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           labelText: "Email",
           labelStyle: const TextStyle(color: Colors.black),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                  color: emailLength < 5 ? Colors.grey : Colors.blue)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                  color: emailLength < 5 ? Colors.grey : Colors.blue)),
         ),
       ),
     );
@@ -82,6 +98,11 @@ class _LoginPageState extends State<LoginPage> {
       child: TextFormField(
         autofocus: false,
         controller: passwordController,
+        onChanged: (text) {
+          setState(() {
+            passwordLength = text.length;
+          });
+        },
         obscureText: _obscureText,
         style:
             const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -100,7 +121,8 @@ class _LoginPageState extends State<LoginPage> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          prefixIcon: const Icon(FontAwesomeIcons.lock),
+          prefixIcon: Icon(FontAwesomeIcons.lock,
+              color: passwordLength < 3 ? Colors.grey : Colors.blue),
           suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
@@ -113,8 +135,13 @@ class _LoginPageState extends State<LoginPage> {
           labelText: "Password",
           labelStyle: const TextStyle(color: Colors.black),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                  color: passwordLength < 3 ? Colors.grey : Colors.blue)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                  color: passwordLength < 3 ? Colors.grey : Colors.blue)),
         ),
       ),
     );
@@ -210,10 +237,10 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const AdminLogin()));
+                                          const ForgotPassword()));
                             },
                             child: Text(
-                              'Admin Login',
+                              'Forgot Password?',
                               style: GoogleFonts.openSans(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900,

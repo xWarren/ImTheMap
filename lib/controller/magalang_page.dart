@@ -509,7 +509,8 @@ class _MagalangPageState extends State<MagalangPage> {
                                   Axis: false,
                                   child: widget
                                           .documentSnapshot['myArray'].isEmpty
-                                      ? Center(child: Text('No reviews yet'))
+                                      ? const Center(
+                                          child: Text('No reviews yet'))
                                       : ListView.builder(
                                           itemCount: widget
                                               .documentSnapshot['myArray']
@@ -564,9 +565,16 @@ class _MagalangPageState extends State<MagalangPage> {
                                                               _buildRating(
                                                                   index),
                                                               Text(
-                                                                widget.documentSnapshot[
-                                                                        'myArray']
-                                                                    [index],
+                                                                widget
+                                                                        .documentSnapshot[
+                                                                            'myArray']
+                                                                        .isEmpty
+                                                                    ? const Center(
+                                                                        child: Text(
+                                                                            'No reviews yet'))
+                                                                    : widget.documentSnapshot[
+                                                                            'myArray']
+                                                                        [index],
                                                                 style: GoogleFonts
                                                                     .openSans(
                                                                   fontWeight:
